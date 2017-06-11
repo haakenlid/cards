@@ -1,130 +1,84 @@
 import React, { Component } from 'react'
-import { applyMiddleware, createStore, combineReducers } from 'redux'
 import { Provider, connect } from 'react-redux'
 import classNames from 'classnames'
-import logger from 'redux-logger'
-import './css/cards.css'
 import './css/style.css'
-import data from './data.json'
+import { flipCard, resize } from './actions'
+import store from './store'
 
-export const FLIP_CARD = 'FLIP_CARD'
-export const flipCard = deck => ({
-  type: FLIP_CARD,
-  payload: { deck },
-})
-export const DISCARD_CARD = 'DISCARD_CARD'
-export const discardCard = deck => ({
-  type: DISCARD_CARD,
-  payload: { deck },
-})
-export const SHUFFLE_DECK = 'SHUFFLE_DECK'
-export const shuffleDeck = deck => ({
-  type: SHUFFLE_DECK,
-  payload: { deck },
-})
-export const ADD_DECK = 'ADD_DECK'
-export const addDeck = deck => ({
-  type: ADD_DECK,
-  payload: deck,
-})
-
-const card = (state, action) => {
-  const { flip = true, status = 0 } = state
-  switch (action.type) {
-    case SHUFFLE_DECK:
-      return { ...state, status: 0 }
-    case FLIP_CARD:
-      return { ...state, flip: !flip }
-    case DISCARD_CARD:
-      return { ...state, status: 2 }
-    default:
-      return state
-  }
-}
-
-const deck = (state = { name: '', cards: [] }, action) => {
-  switch (action.type) {
-    case ADD_DECK: {
-      return {
-        ...state,
-        ...action.payload,
-        cards: action.payload.cards.map(c => card(c, action)),
-      }
-    }
-    case FLIP_CARD:
-    case DISCARD_CARD:
-      return {
-        ...state,
-        cards: [card(state.cards[0], action), ...state.cards.splice(1)],
-      }
-    case SHUFFLE_DECK:
-      return { ...state, cards: state.cards.map(c => card(c, action)) }
-    default:
-      return state
-  }
-}
-
-const decks = (state = [], action) => {
-  if (action.type === ADD_DECK) {
-    return [...state, deck(action)]
-  }
-  if (action.payload) {
-    return state.map(
-      d => (action.payload.deck === d.name ? deck(d, action) : d)
-    )
-  }
-  return state
-}
-
-const initialState = { decks: [data.sjansekort, data.handlingskort] }
-
-const store = createStore(
-  combineReducers({ decks }),
-  initialState,
-  applyMiddleware(logger)
-)
-
-const Card = ({ title, text, flip = true, ...props }) => (
-  <div className={classNames('card', { flip })} {...props}>
-    <div className="front">
-      <div className="pad">
-        <h2 className="card-title">
-          {title}
-        </h2>
-        <div className="card-text">
-          {text}
-        </div>
+const CardFront = ({ title, text }) => (
+  <div className="CardFront">
+    <div className="card-content">
+      <h2 className="card-title">
+        {title}
+      </h2>
+      <div className="card-text">
+        {text}
       </div>
     </div>
-    <div className="back" />
   </div>
 )
 
-const Deck = ({ name, cards, flipCard }) => (
-  <div className={classNames('deck', name)}>
-    <svg className="spacer" viewBox="0 0 1000 710" />
+const CardBack = () => <div className="CardBack" />
+
+const Card = ({ title, text, flip = true, ...props }) => (
+  <div className={classNames('Card', { flip })} {...props}>
+    <CardFront title={title} text={text} />
+    <CardBack />
+  </div>
+)
+
+const Deck = ({ name, cards, flipCard, ...props }) => (
+  <div className={classNames('Deck', name)} {...props}>
     <Card onClick={e => flipCard(name)} {...cards[0]} />
   </div>
 )
 const DeckContainer = connect(null, { flipCard })(Deck)
 
-let Root = ({ decks = [] }) => (
-  <div className="App">
-    <div className="wrapper">
-      {decks.map(props => <DeckContainer key={props.name} {...props} />)}
-    </div>
-  </div>
-)
-Root = connect(state => state)(Root)
-
-class App extends Component {
+class Root extends Component {
+  componentDidMount() {
+    window.addEventListener('resize', this.props.resizeHandler)
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.props.resizeHandler)
+  }
+  componentWillMount() {
+    this.props.resizeHandler()
+  }
   render() {
+    const { decks = [], ui } = this.props
+    const ratio = 0.71
+    const vertical = decks.length * ratio
+    const horizontal = 1
+    const width = ui.screenSize[0] / horizontal
+    const height = ui.screenSize[1] / vertical
+    const fontSize = width < height ? `0.95vw` : `${0.95 / vertical}vh`
+    const deckStyle = { width: '100em', height: `${100 * ratio}em` }
+    console.log(width, height)
     return (
-      <Provider store={store}>
-        <Root />
-      </Provider>
+      <div className="App">
+        <div className="deck-wrapper" style={{ fontSize }}>
+          {decks.map(props => (
+            <DeckContainer key={props.name} style={deckStyle} {...props} />
+          ))}
+        </div>
+      </div>
     )
   }
 }
+Root = connect(
+  state => state,
+  dispatch => ({
+    resizeHandler: e => {
+      console.log(e)
+      dispatch(resize([window.innerWidth, window.innerHeight]))
+    },
+  })
+)(Root)
+
+const App = () => (
+  <Provider store={store}>
+    <Root />
+  </Provider>
+)
 
 export default App

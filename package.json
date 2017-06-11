@@ -5,10 +5,12 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.5",
+    "node-sass-chokidar": "0.0.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
     "redux": "^3.6.0",
+    "redux-debounced": "^0.4.0",
     "redux-logger": "^3.0.6"
   },
   "devDependencies": {
@@ -21,6 +23,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
   }
 }
