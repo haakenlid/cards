@@ -1,27 +1,9 @@
-.sjansekort{
-  .CardFront {
-    background-image: url('sjanse-CardFront.jpg');
-  }
-  .CardBack {
-    background-image: url('sjanse-CardBack.jpg');
-  }
-}
-.handlingskort{
-  .CardFront {
-    background-image: url('handling-CardFront.jpg');
-  }
-  .CardBack {
-    background-image: url('handling-CardBack.jpg');
-  }
-}
 html {
-  tap-highlight-color: transparent;
   overflow: hidden;
+  box-sizing: border-box;
 }
 .App {
   background: #EEE;
-  margin: 0 auto;
-  box-sizing: border-box;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -36,8 +18,9 @@ html {
 }
 
 .Deck {
-  position: relative;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
   flex: 1;
   flex-direction: column;
   align-items: center;
@@ -76,44 +59,48 @@ html {
   width: 100%;
   z-index: 0;
   transform: scale(.8);
-  transition-property: transform, box-shadow, z-index;
+  transition-property: transform, box-shadow;
   transition-duration: 0.6s;
   transition-timing-function: ease-in-out;
-  user-select: none;
   cursor: pointer;
   perspective: 150em;
   position: relative;
   .CardFront { transform: rotateY(180deg); }
   .CardBack { transform:  rotateY(0); }
+  &.flip {
+    z-index: 100;
+    .CardFront { transform: rotateY(0); }
+    .CardBack { transform:  rotateY(-180deg); }
+  }
   &:hover{
-    z-index: 300;
+    z-index: 400;
     transform: scale(1);
     .CardFront, .CardBack{
       box-shadow: 0 10em 20em -5em rgba(0,0,0,0.5);
     }
   }
-  &.flip {
-    z-index: 200;
-    .CardFront { transform: rotateY(0); }
-    .CardBack { transform:  rotateY(-180deg); }
-  }
   &.discarded {
-    z-index: 300;
+    z-index: 500;
     transform: rotateX(90deg) rotateY(70deg) translateX(100vh);
   }
 }
-
 .CardBack, .CardFront {
   box-shadow: 0 2em 3em 0.1em rgba(0,0,0,0.5);
   border-radius: 3em;
-  height: 100%;
-  width: 100%;
-  background-size: cover;
-  background-position: center;
-  position: absolute;
   width: inherit;
   height: inherit;
+  transition: inherit;
+  position: absolute;
+  background-size: cover;
+  background-position: center;
   transform-origin: 45% 50%;
   backface-visibility: hidden;
-  transition: inherit;
+}
+.sjansekort{
+  .CardFront { background-image: url('sjanse-CardFront.jpg'); }
+  .CardBack { background-image: url('sjanse-CardBack.jpg'); }
+}
+.handlingskort{
+  .CardFront { background-image: url('handling-CardFront.jpg'); }
+  .CardBack { background-image: url('handling-CardBack.jpg'); }
 }
