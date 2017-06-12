@@ -20,7 +20,7 @@ const CardFront = ({ title, text }) => (
 
 const CardBack = () => <div className="CardBack" />
 
-const Card = ({ title, text, flip = true, ...props }) => (
+const Card = ({ title, text, flip = false, ...props }) => (
   <div className={classNames('Card', { flip })} {...props}>
     <CardFront title={title} text={text} />
     <CardBack />
