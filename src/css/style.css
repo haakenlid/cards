@@ -58,9 +58,9 @@ html {
     transform: rotateX(90deg) rotateY(70deg) translateX(100vh); }
 
 .card-content {
-  font-size: 0.4em;
+  font-size: 0.36em;
   line-height: 1.2em;
-  padding: 2.5em; }
+  padding: 3em; }
   .card-content .card-title {
     font-size: 1.5em;
     margin: 0 0 0.4em 0;

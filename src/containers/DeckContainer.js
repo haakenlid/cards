@@ -31,10 +31,16 @@ let Deck = ({ id, cards, topCard, shuffle, discard, flip, ...props }) => {
   }
 }
 Deck = connect(null, (dispatch, { id, topCard }) => ({
-  flip: () => dispatch(flipCard(id, topCard)),
-  discard: () => dispatch(discardCard(id, topCard)),
-  shuffle: () => dispatch(shuffleDeck(id)),
+  flip: eventHandler(dispatch, flipCard, [id, topCard]),
+  discard: eventHandler(dispatch, discardCard, [id, topCard]),
+  shuffle: eventHandler(dispatch, shuffleDeck, [id]),
 }))(Deck)
+
+const eventHandler = (dispatch, action, args) => e => {
+  e.preventDefault()
+  e.stopPropagation()
+  dispatch(action(...args))
+}
 
 const DeckContainer = ({
   screenSize,
