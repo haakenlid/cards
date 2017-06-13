@@ -1,11 +1,13 @@
-import rootReducer from './reducers'
 import data from './data.json'
 import loggerMiddleware from 'redux-logger'
 import debounceMiddleware from 'redux-debounced'
-import { applyMiddleware, createStore } from 'redux'
+import { combineReducers, applyMiddleware, createStore } from 'redux'
+import { reducer as ui } from './ducks/ui'
+import { reducer as decks } from './ducks/decks'
+import { reducer as protodecks } from './ducks/decks'
 
 export default createStore(
-  rootReducer,
-  { decks: [data.sjansekort, data.handlingskort] },
+  combineReducers({ decks, ui, protodecks }),
+  { protodecks: [data.sjansekort, data.handlingskort] },
   applyMiddleware(debounceMiddleware(), loggerMiddleware)
 )
