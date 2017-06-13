@@ -6,32 +6,34 @@ import { flipCard, discardCard, addDeck, shuffleDeck } from '../ducks/decks'
 
 const getScreenSize = () => [window.innerWidth, window.innerHeight]
 
-let Deck = ({
-  name,
-  cards,
-  topCard = 0,
-  shuffleDeck,
-  discardTop,
-  flipTop,
-  ...props
-}) => {
-  if (topCard == cards.length) {
-    return <div {...props} className="Deck reshuffle" onClick={shuffleDeck} />
-  }
-  const renderCard = (props, index) =>
-    props.status
-      ? <Card flip={true} key={index} onClick={discardTop} {...props} />
-      : <Card flip={false} key={index} onClick={flipTop} {...props} />
-  return (
-    <div className={classNames('Deck', name)} {...props}>
-      {cards.map(renderCard).slice(topCard)}
-    </div>
+let Deck = ({ id, cards, topCard, shuffle, discard, flip, ...props }) => {
+  const renderCard = ({ status, deckName, ...props }, index) => (
+    <Card
+      discarded={index < topCard}
+      flip={status === 1}
+      className={deckName || 'blank'}
+      onClick={[flip, discard, null][status]}
+      key={index}
+      {...props}
+    />
   )
+  if (topCard === cards.length) {
+    return <div {...props} className="Deck reshuffle" onClick={shuffle} />
+  } else {
+    return (
+      <div className={classNames('Deck', id)} {...props}>
+        {cards
+          .map(renderCard)
+          .slice(Math.max(0, topCard - 3), topCard + 2)
+          .reverse()}
+      </div>
+    )
+  }
 }
-Deck = connect(null, (dispatch, { name, topCard }) => ({
-  flipTop: () => dispatch(flipCard(name, topCard)),
-  discardTop: () => dispatch(discardCard(name, topCard)),
-  shuffleDeck: () => dispatch(shuffleDeck(name)),
+Deck = connect(null, (dispatch, { id, topCard }) => ({
+  flip: () => dispatch(flipCard(id, topCard)),
+  discard: () => dispatch(discardCard(id, topCard)),
+  shuffle: () => dispatch(shuffleDeck(id)),
 }))(Deck)
 
 const DeckContainer = ({
@@ -48,14 +50,15 @@ const DeckContainer = ({
   const height = screenHeight / vertical
   const fontSize = width < height ? `10vw` : `${10 / vertical}vh`
   const deckStyle = { width: '9em', height: `${9 * ratio}em` }
-  const addProtoDecs = () =>
+  const addProtoDecks = () =>
     protodecks.forEach(protodeck => dispatch(addDeck(protodeck)))
-  if (decks.length === 0) return <div onClick={addProtoDecs}> click me </div>
+  if (decks.length === 0) {
+    addProtoDecks()
+    return null
+  }
   return (
     <div className="DeckContainer" style={{ fontSize }}>
-      {decks.map(props => (
-        <Deck key={props.name} style={deckStyle} {...props} />
-      ))}
+      {decks.map(props => <Deck key={props.id} style={deckStyle} {...props} />)}
     </div>
   )
 }

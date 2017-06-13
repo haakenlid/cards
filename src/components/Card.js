@@ -16,8 +16,18 @@ const CardFront = ({ title, text }) => (
 
 const CardBack = () => <div className="CardBack" />
 
-const Card = ({ title, text, flip = false, ...props }) => (
-  <div className={classNames('Card', { flip })} {...props}>
+const Card = ({
+  title,
+  text,
+  className = '',
+  flip = false,
+  discarded = false,
+  ...props
+}) => (
+  <div
+    className={classNames('Card', className, { flip, discarded })}
+    {...props}
+  >
     <CardFront title={title} text={text} />
     <CardBack />
   </div>

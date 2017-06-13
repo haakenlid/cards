@@ -1,5 +1,5 @@
 html {
-  //overflow: hidden;
+  overflow: hidden;
   box-sizing: border-box;
 }
 .App {
@@ -58,17 +58,15 @@ html {
     .CardFront { transform: rotateY(0); }
     .CardBack { transform:  rotateY(-180deg); }
   }
-  &:first-of-type{
-    z-index: 1;
-    &:hover{
-      z-index: 200;
-      transform: scale(1);
-      .CardFront, .CardBack{
-        box-shadow: 0 0.1em 2em -0.5em rgba(0,0,0,0.5);
-      }
+  &:hover{
+    z-index: 200;
+    transform: scale(1);
+    .CardFront, .CardBack{
+      box-shadow: 0 0.1em 2em -0.5em rgba(0,0,0,0.5);
     }
   }
   &.discarded {
+    pointer-events: none;
     z-index: 300;
     transform: rotateX(90deg) rotateY(70deg) translateX(100vh);
   }
@@ -76,6 +74,7 @@ html {
 
 .card-content {
   font-size: 0.4em;
+  line-height: 1.2em;
   padding: 2.5em;
   .card-title {
     font-size: 1.5em;

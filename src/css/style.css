@@ -1,4 +1,5 @@
 html {
+  overflow: hidden;
   box-sizing: border-box; }
 
 .App {
@@ -46,19 +47,19 @@ html {
       transform: rotateY(0); }
     .Card.flip .CardBack {
       transform: rotateY(-180deg); }
-  .Card:first-of-type {
-    z-index: 1; }
-    .Card:first-of-type:hover {
-      z-index: 200;
-      transform: scale(1); }
-      .Card:first-of-type:hover .CardFront, .Card:first-of-type:hover .CardBack {
-        box-shadow: 0 0.1em 2em -0.5em rgba(0, 0, 0, 0.5); }
+  .Card:hover {
+    z-index: 200;
+    transform: scale(1); }
+    .Card:hover .CardFront, .Card:hover .CardBack {
+      box-shadow: 0 0.1em 2em -0.5em rgba(0, 0, 0, 0.5); }
   .Card.discarded {
+    pointer-events: none;
     z-index: 300;
     transform: rotateX(90deg) rotateY(70deg) translateX(100vh); }
 
 .card-content {
   font-size: 0.4em;
+  line-height: 1.2em;
   padding: 2.5em; }
   .card-content .card-title {
     font-size: 1.5em;
