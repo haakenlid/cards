@@ -10,9 +10,9 @@ export const addProtodeck = deck => ({
   payload: { [deck.name]: deck },
 })
 
-const protoDeck = (state = {}, action) => {
-  return state
-}
+// const protoDeck = (state = {}, action) => {
+//   return state
+// }
 
 export const reducer = (state = {}, action) => {
   switch (action.type) {

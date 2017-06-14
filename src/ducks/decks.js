@@ -56,7 +56,6 @@ const deck = (state, action) => {
   switch (action.type) {
     case types.ADD_DECK: {
       const { deckName, cards } = action.payload
-      console.log(deckName)
       return {
         topCard: 0,
         deckName,

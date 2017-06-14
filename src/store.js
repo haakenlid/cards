@@ -1,7 +1,7 @@
 import data from './data.json'
 import loggerMiddleware from 'redux-logger'
 import debounceMiddleware from 'redux-debounced'
-import { combineReducers, applyMiddleware, createStore } from 'redux'
+import { combineReducers, applyMiddleware, createStore, compose } from 'redux'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import { reducer as ui } from './ducks/ui'
 import { reducer as decks, addDeck, shuffleDeck } from './ducks/decks'
@@ -27,11 +27,13 @@ const initializeRootStore = store => {
 const store = createStore(
   combineReducers({ decks, ui, protodecks }),
   defaultData,
-  applyMiddleware(debounceMiddleware(), loggerMiddleware),
-  autoRehydrate()
+  compose(
+    applyMiddleware(debounceMiddleware(), loggerMiddleware),
+    autoRehydrate()
+  )
 )
 
-persistStore(store)
 initializeRootStore(store)
+persistStore(store)
 
 export default store

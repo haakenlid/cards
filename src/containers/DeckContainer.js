@@ -56,7 +56,9 @@ const DeckContainer = ({ screenSize, decks = [], dispatch }) => {
   }
   return (
     <div className="DeckContainer" style={{ fontSize }}>
-      {decks.map(props => <Deck style={deckStyle} {...props} />)}
+      {decks.map(props => (
+        <Deck key={props.deckName} style={deckStyle} {...props} />
+      ))}
     </div>
   )
 }
