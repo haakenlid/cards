@@ -93,6 +93,13 @@ html {
   background-position: center;
   transform-origin: 45% 50%;
   backface-visibility: hidden;
+  background-color: white;
+}
+.CardBack {
+  background-image: url('fallback-CardBack.jpg');
+}
+.CardFront {
+  background-image: url('fallback-CardFront.jpg');
 }
 .sjansekort{
   .CardFront { background-image: url('sjanse-CardFront.jpg'); }

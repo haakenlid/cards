@@ -3,28 +3,32 @@ const types = {
   DISCARD_CARD: 'decks/DISCARD_CARD',
   SHUFFLE_DECK: 'decks/SHUFFLE_DECK',
   ADD_DECK: 'decks/ADD_DECK',
+  REMOVE_DECK: 'decks/REMOVE_DECK',
 }
 
-export const flipCard = (deckId, topCard) => ({
+// action creators
+export const flipCard = (deckName, topCard) => ({
   type: types.FLIP_CARD,
-  payload: { deckId, topCard },
+  payload: { deckName, topCard },
 })
-export const discardCard = (deckId, topCard) => ({
+export const discardCard = (deckName, topCard) => ({
   type: types.DISCARD_CARD,
-  payload: { deckId, topCard },
+  payload: { deckName, topCard },
 })
-export const shuffleDeck = deckId => ({
+export const shuffleDeck = deckName => ({
   type: types.SHUFFLE_DECK,
-  payload: { deckId },
+  payload: { deckName },
 })
-export const addDeck = ({ name, cards }) => ({
-  foo: console.log(name, cards),
+export const addDeck = (deckName, cards) => ({
   type: types.ADD_DECK,
-  payload: { id: name, name, cards },
+  payload: { deckName, cards },
+})
+export const RemoveDeck = deckName => ({
+  type: types.REMOVE_DECK,
+  payload: { deckName },
 })
 
-const newCard = (card, deckName) => ({ status: 0, deckName, ...card })
-
+// utility functions
 const shuffle = arr => {
   const a = arr.slice()
   for (let i = a.length; i; i--) {
@@ -34,8 +38,11 @@ const shuffle = arr => {
   return a
 }
 
+// reducers
 const card = (state, action) => {
   switch (action.type) {
+    case types.ADD_DECK:
+      return { ...state, status: 0, ...action.payload }
     case types.SHUFFLE_DECK:
       return { ...state, status: 0 }
     case types.FLIP_CARD:
@@ -47,12 +54,15 @@ const card = (state, action) => {
 
 const deck = (state, action) => {
   switch (action.type) {
-    case types.ADD_DECK:
+    case types.ADD_DECK: {
+      const { deckName, cards } = action.payload
+      console.log(deckName)
       return {
         topCard: 0,
-        id: action.payload.id,
-        cards: action.payload.cards.map(c => newCard(c, action.payload.name)),
+        deckName,
+        cards: cards.map(payload => card({ deckName }, { ...action, payload })),
       }
+    }
     case types.FLIP_CARD:
       return {
         ...state,
@@ -73,15 +83,24 @@ const deck = (state, action) => {
   }
 }
 
-export const reducer = (state = [], action) => {
-  if (action.type === types.ADD_DECK) {
-    action.payload.id = state.length + 1
-    return [...state, deck(null, action)]
+// root reducer
+
+const decks = (state = [], action) => {
+  switch (action.type) {
+    case types.ADD_DECK:
+      //if (state.filter(d => d.deckName === action.payload.deckName))
+      //  return state
+      return [...state, deck(undefined, action)]
+    case types.REMOVE_DECK:
+      return state.filter(d => d.deckName !== action.payload.deckName)
+    case types.FLIP_CARD:
+    case types.DISCARD_CARD:
+    case types.SHUFFLE_DECK:
+      return state.map(
+        d => (action.payload.deckName === d.deckName ? deck(d, action) : d)
+      )
+    default:
+      return state
   }
-  if (action.payload) {
-    return state.map(
-      d => (action.payload.deckId === d.id ? deck(d, action) : d)
-    )
-  }
-  return state
 }
+export { decks as reducer }

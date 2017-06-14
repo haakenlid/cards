@@ -2,12 +2,36 @@ import data from './data.json'
 import loggerMiddleware from 'redux-logger'
 import debounceMiddleware from 'redux-debounced'
 import { combineReducers, applyMiddleware, createStore } from 'redux'
+import { persistStore, autoRehydrate } from 'redux-persist'
 import { reducer as ui } from './ducks/ui'
-import { reducer as decks } from './ducks/decks'
-import { reducer as protodecks } from './ducks/decks'
+import { reducer as decks, addDeck, shuffleDeck } from './ducks/decks'
+import { reducer as protodecks } from './ducks/protodecks'
 
-export default createStore(
+// Use this state unless hydrated
+const defaultData = {
+  protodecks: data,
+  ui: { activeDecks: ['sjansekort', 'handlingskort'] },
+}
+
+// Initialize decks if needed
+const initializeRootStore = store => {
+  const { ui, protodecks, decks } = store.getState()
+  if (decks.length > 0) return
+  ui.activeDecks.forEach((deckName, index) => {
+    const cards = protodecks[deckName].cards
+    store.dispatch(addDeck(deckName, cards))
+    store.dispatch(shuffleDeck(deckName))
+  })
+}
+
+const store = createStore(
   combineReducers({ decks, ui, protodecks }),
-  { protodecks: [data.sjansekort, data.handlingskort] },
-  applyMiddleware(debounceMiddleware(), loggerMiddleware)
+  defaultData,
+  applyMiddleware(debounceMiddleware(), loggerMiddleware),
+  autoRehydrate()
 )
+
+persistStore(store)
+initializeRootStore(store)
+
+export default store

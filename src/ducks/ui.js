@@ -5,7 +5,7 @@ const actions = {
 export const resize = screenSize => ({
   type: actions.RESIZE,
   meta: {
-    debounce: { time: 200 },
+    debounce: { time: 100 },
   },
   payload: { screenSize },
 })
