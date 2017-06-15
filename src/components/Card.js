@@ -22,10 +22,11 @@ const Card = ({
   className = '',
   flip = false,
   discarded = false,
+  top = false,
   ...props
 }) => (
   <div
-    className={classNames('Card', className, { flip, discarded })}
+    className={classNames('Card', className, { top, flip, discarded })}
     {...props}
   >
     <CardFront title={title} text={text} />

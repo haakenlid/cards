@@ -3,32 +3,38 @@ import { connect } from 'react-redux'
 import classNames from 'classnames'
 import Card from '../components/Card'
 import { flipCard, discardCard, shuffleDeck } from '../ducks/decks'
+import { resize } from '../ducks/ui'
 
-const getScreenSize = () => [window.innerWidth, window.innerHeight]
-
-let Deck = ({ deckName, cards, topCard, shuffle, discard, flip, ...props }) => {
+let Deck = ({
+  style,
+  deckName,
+  cards,
+  topCard,
+  shuffle,
+  discard,
+  flip,
+  ...props
+}) => {
   const renderCard = ({ status, deckName, ...props }, index) => (
     <Card
       discarded={index < topCard}
+      top={index == topCard}
       flip={status === 1}
-      className={deckName || 'blank'}
       onClick={[flip, discard, null][status]}
       key={index}
+      style={style}
       {...props}
     />
   )
-  if (topCard === cards.length) {
-    return <div {...props} className="Deck reshuffle" onClick={shuffle} />
-  } else {
-    return (
-      <div className={classNames('Deck', deckName)} {...props}>
-        {cards
-          .map(renderCard)
-          .slice(Math.max(0, topCard - 3), topCard + 2)
-          .reverse()}
-      </div>
-    )
-  }
+  return (
+    <div className={classNames('Deck', deckName)} {...props}>
+      <div className="Card reshuffle" style={style} onClick={shuffle} />
+      {cards
+        .map(renderCard)
+        .slice(Math.max(0, topCard - 3), topCard + 2)
+        .reverse()}
+    </div>
+  )
 }
 Deck = connect(null, (dispatch, { deckName, topCard }) => ({
   flip: eventHandler(dispatch, flipCard, [deckName, topCard]),
@@ -42,28 +48,82 @@ const eventHandler = (dispatch, action, args) => e => {
   dispatch(action(...args))
 }
 
-const DeckContainer = ({ screenSize, decks = [], dispatch }) => {
-  const [screenWidth, screenHeight] = screenSize ? screenSize : getScreenSize()
-  const ratio = 0.71
-  const vertical = decks.length * ratio
-  const horizontal = 1
-  const width = screenWidth / horizontal
-  const height = screenHeight / vertical
-  const fontSize = width < height ? `10vw` : `${10 / vertical}vh`
-  const deckStyle = { width: '9em', height: `${9 * ratio}em` }
-  if (decks.length === 0) {
-    return <div> No decks found </div>
+const layout = (screenSize, decksLen = 1, cardRatio = 0.71) => {
+  const [screenWidth, screenHeight] = screenSize || [100, 100]
+  const fontSize = screenWidth < screenHeight / cardRatio
+    ? `${screenWidth / 10}px`
+    : `${screenHeight / 10 / cardRatio}px`
+  const deckStyles = []
+  if (screenWidth < screenHeight * decksLen * cardRatio) {
+    // column
+    const scale = screenHeight / (screenWidth * cardRatio * decksLen)
+    for (let i = 0; i < decksLen; i++) {
+      const offset = (i - (decksLen - 1) / 2) * scale * 100
+      deckStyles.push({
+        transform: `translate(0, ${offset}%) scale(${Math.min(0.8, scale)}`,
+      })
+    }
+  } else {
+    // row
+    const scale = screenWidth * cardRatio / (screenHeight * decksLen)
+    for (let i = 0; i < decksLen; i++) {
+      const offset = (i - (decksLen - 1) / 2) * scale * 100
+      deckStyles.push({
+        transform: `translate(${offset}%, 0) scale(${Math.min(0.8, scale)}`,
+      })
+    }
   }
-  return (
-    <div className="DeckContainer" style={{ fontSize }}>
-      {decks.map(props => (
-        <Deck key={props.deckName} style={deckStyle} {...props} />
-      ))}
-    </div>
-  )
+  return {
+    wrapperStyle: { width: '9.5em', height: `${9.5 * cardRatio}em` },
+    containerStyle: { fontSize },
+    deckStyles,
+  }
 }
 
-export default connect(({ decks, ui }) => ({
-  decks,
-  screenSize: ui.screenSize || null,
-}))(DeckContainer)
+const NoDecks = () => <h1> No decks found </h1>
+
+class DeckContainer extends React.Component {
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize)
+  }
+  componentDidMount() {
+    this.resize()
+    window.addEventListener('resize', this.resize)
+  }
+  resize = () => {
+    console.log(this.element)
+    this.props.resize([this.element.clientWidth, this.element.clientHeight])
+  }
+  render() {
+    console.log('render', this.props)
+    const { decks, screenSize } = this.props
+    if (decks.length === 0) return <NoDecks />
+    const styles = layout(screenSize, decks.length)
+    console.log(styles)
+    return (
+      <section
+        ref={el => (this.element = el)}
+        className="DeckContainer"
+        style={styles.containerStyle}
+      >
+        <div className="wrapper" style={styles.wrapperStyle}>
+          {decks.map((props, i) => (
+            <Deck
+              key={props.deckName}
+              style={styles.deckStyles[i]}
+              {...props}
+            />
+          ))}
+        </div>
+      </section>
+    )
+  }
+}
+
+export default connect(
+  ({ decks, ui }) => ({
+    decks,
+    screenSize: ui.screenSize,
+  }),
+  { resize }
+)(DeckContainer)

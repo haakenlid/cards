@@ -8,35 +8,62 @@ html {
   width: 100vw;
   display: flex;
   flex-direction: column;
+  align-items: stretch; }
+
+.AppMenu {
+  display: flex;
+  justify-content: center;
+  font-size: 10vmin; }
+  .AppMenu .MenuItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.4em;
+    height: 1em;
+    width: 1em;
+    color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    cursor: pointer; }
+    .AppMenu .MenuItem:hover {
+      background: white;
+      color: black; }
+
+.DeckContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center; }
+  .DeckContainer .wrapper {
+    position: relative; }
 
 .Deck {
+  height: 100%;
+  width: 100%;
   user-select: none;
-  position: relative;
+  position: absolute;
+  pointer-events: none;
   -webkit-tap-highlight-color: transparent;
   flex: 1; }
-  .Deck.reshuffle {
-    box-sizing: border-box;
-    border: .5rem #FFF dashed;
-    background: none;
-    transform: rotateZ(180deg) translateZ(0.75); }
-    .Deck.reshuffle .CardBack {
-      opacity: 0; }
-    .Deck.reshuffle:hover {
-      transform: rotateZ(180deg) translateZ(0.75); }
+
+.reshuffle {
+  border-radius: 0.3em;
+  background: black;
+  opacity: 0.1; }
+  .reshuffle:hover {
+    opacity: 0.2; }
 
 .Card {
   height: 100%;
   width: 100%;
   z-index: 0;
-  transform: scale(0.8);
   transition-property: transform, box-shadow;
   transition-duration: 0.6s;
   transition-timing-function: ease-in-out;
   cursor: pointer;
   perspective: 15em;
-  position: absolute; }
+  position: absolute;
+  pointer-events: all; }
   .Card .CardFront {
     transform: rotateY(180deg); }
   .Card .CardBack {
@@ -47,15 +74,15 @@ html {
       transform: rotateY(0); }
     .Card.flip .CardBack {
       transform: rotateY(-180deg); }
-  .Card:hover {
+  .Card.top:hover {
     z-index: 200;
-    transform: scale(1); }
-    .Card:hover .CardFront, .Card:hover .CardBack {
+    transform: scale(1) translate(0, 0) !important; }
+    .Card.top:hover .CardFront, .Card.top:hover .CardBack {
       box-shadow: 0 0.1em 2em -0.5em rgba(0, 0, 0, 0.5); }
   .Card.discarded {
     pointer-events: none;
     z-index: 300;
-    transform: rotateX(90deg) rotateY(70deg) translateX(100vh); }
+    transform: rotateX(90deg) rotateY(70deg) translateX(100vh) !important; }
 
 .card-content {
   font-size: 0.36em;
@@ -67,7 +94,7 @@ html {
     padding: 0; }
 
 .CardBack, .CardFront {
-  box-shadow: 0 0.2em 0.3em 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0.2em 0.3em 0 rgba(0, 0, 0, 0.3);
   border-radius: 0.3em;
   width: inherit;
   height: inherit;
