@@ -26,7 +26,7 @@ const Card = ({
   ...props
 }) => (
   <div
-    className={classNames('Card', className, { top, flip, discarded })}
+    className={classNames('Card', className, { flip, discarded })}
     {...props}
   >
     <CardFront title={title} text={text} />

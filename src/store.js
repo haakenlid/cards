@@ -7,6 +7,11 @@ import { reducer as ui } from './ducks/ui'
 import { reducer as decks, addDeck, shuffleDeck } from './ducks/decks'
 import { reducer as protodecks } from './ducks/protodecks'
 
+// middlewares
+const middlewares = [debounceMiddleware()]
+if (process.env.NODE_ENV === 'development') {
+  middlewares.push(loggerMiddleware)
+}
 // Use this state unless hydrated
 const defaultData = {
   protodecks: data,
@@ -27,10 +32,7 @@ const initializeRootStore = store => {
 const store = createStore(
   combineReducers({ decks, ui, protodecks }),
   defaultData,
-  compose(
-    applyMiddleware(debounceMiddleware(), loggerMiddleware),
-    autoRehydrate()
-  )
+  compose(applyMiddleware(...middlewares), autoRehydrate())
 )
 
 initializeRootStore(store)

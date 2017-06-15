@@ -4,7 +4,7 @@ html {
   -webkit-tap-highlight-color: transparent; }
 
 .App {
-  background: #EEE;
+  background: #eee;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -17,16 +17,14 @@ html {
   transition-timing-function: ease-in-out;
   display: flex;
   justify-content: center;
-  font-size: 6vmin; }
-  .AppMenu:hover {
-    font-size: 12vmin; }
+  font-size: 6vmin;
+  height: 2em; }
   .AppMenu .MenuItem {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.2em;
-    height: 1em;
-    width: 1em;
+    height: 1.5em;
+    width: 1.5em;
     color: rgba(0, 0, 0, 0.3);
     border-radius: 50%;
     cursor: pointer; }
@@ -52,17 +50,15 @@ html {
   flex: 1; }
 
 .reshuffle {
+  box-shadow: 0 0.2em 0.3em 0 rgba(0, 0, 0, 0.3);
   border-radius: 0.3em;
-  background: black;
-  opacity: 0.1; }
-  .reshuffle:hover {
-    opacity: 0.2; }
+  background: #ddd; }
 
 .Card {
   height: 100%;
   width: 100%;
   z-index: 0;
-  transition-property: transform, box-shadow;
+  transition-property: transform, box-shadow, z-index;
   transition-duration: 0.6s;
   transition-timing-function: ease-in-out;
   cursor: pointer;
@@ -79,15 +75,14 @@ html {
       transform: rotateY(0); }
     .Card.flip .CardBack {
       transform: rotateY(-180deg); }
-  .Card.top:hover {
-    z-index: 200;
-    transform: scale(1) translate(0, 0) !important; }
-    .Card.top:hover .CardFront, .Card.top:hover .CardBack {
-      box-shadow: 0 0.1em 2em -0.5em rgba(0, 0, 0, 0.5); }
+    .Card.flip:hover {
+      z-index: 200;
+      transform: scale(1) translate(0, 0) !important; }
+      .Card.flip:hover .CardFront, .Card.flip:hover .CardBack {
+        box-shadow: 0 0.1em 2em -0.5em rgba(0, 0, 0, 0.5); }
   .Card.discarded {
-    pointer-events: none;
     z-index: 300;
-    transform: rotateX(90deg) rotateY(70deg) translateX(100vh) !important; }
+    transform: rotateX(90deg) rotateY(70deg) translateX(150vh) !important; }
 
 .card-content {
   font-size: 0.36em;
@@ -99,7 +94,7 @@ html {
     padding: 0; }
 
 .CardBack, .CardFront {
-  box-shadow: 0 0.2em 0.3em 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 0 transparent;
   border-radius: 0.3em;
   width: inherit;
   height: inherit;

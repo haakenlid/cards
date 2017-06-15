@@ -5,30 +5,20 @@ import Card from '../components/Card'
 import { flipCard, discardCard, shuffleDeck } from '../ducks/decks'
 import { resize } from '../ducks/ui'
 
-let Deck = ({
-  style,
-  deckName,
-  cards,
-  topCard,
-  shuffle,
-  discard,
-  flip,
-  ...props
-}) => {
+let Deck = ({ style, deckName, cards, topCard, onClick, ...props }) => {
   const renderCard = ({ status, deckName, ...props }, index) => (
     <Card
+      top={index === topCard}
+      flip={index === topCard && status === 1}
       discarded={index < topCard}
-      top={index == topCard}
-      flip={status === 1}
-      onClick={[flip, discard, null][status]}
       key={index}
       style={style}
       {...props}
     />
   )
   return (
-    <div className={classNames('Deck', deckName)} {...props}>
-      <div className="Card reshuffle" style={style} onClick={shuffle} />
+    <div className={classNames('Deck', deckName)} onClick={onClick} {...props}>
+      <div className="Card reshuffle" style={style} />
       {cards
         .map(renderCard)
         .slice(Math.max(0, topCard - 1), topCard + 2)
@@ -36,16 +26,29 @@ let Deck = ({
     </div>
   )
 }
-Deck = connect(null, (dispatch, { deckName, topCard }) => ({
-  flip: eventHandler(dispatch, flipCard, [deckName, topCard]),
-  discard: eventHandler(dispatch, discardCard, [deckName, topCard]),
-  shuffle: eventHandler(dispatch, shuffleDeck, [deckName]),
-}))(Deck)
+Deck = connect(null, (dispatch, { deckName, topCard, cards }) => {
+  const handler = cards.length <= topCard
+    ? shuffleDeck
+    : cards[topCard].status === 0 ? flipCard : discardCard
+  return {
+    onClick: e => {
+      e.preventDefault()
+      e.stopPropagation()
+      dispatch(handler(deckName, topCard))
+    },
+  }
+})(Deck)
 
-const eventHandler = (dispatch, action, args) => e => {
-  e.preventDefault()
-  e.stopPropagation()
-  dispatch(action(...args))
+const calculateDeckStyles = (len = 1, size = 1, column = false) => {
+  const arr = []
+  for (let i = 0; i < len; i++) {
+    const scale = 0.8 * Math.min(1, size)
+    const offset = (i - (len - 1) / 2) * size
+    let translate = ['0', `${offset * 100}%`]
+    if (!column) translate = translate.reverse()
+    arr.push({ transform: `translate(${translate}) scale(${scale})` })
+  }
+  return arr
 }
 
 const layout = (screenSize, decksLen = 1, cardRatio = 0.71) => {
@@ -53,25 +56,21 @@ const layout = (screenSize, decksLen = 1, cardRatio = 0.71) => {
   const fontSize = screenWidth < screenHeight / cardRatio
     ? `${screenWidth / 10}px`
     : `${screenHeight / 10 / cardRatio}px`
-  const deckStyles = []
+  let deckStyles = []
   if (screenWidth < screenHeight * decksLen * cardRatio) {
     // column
-    const scale = screenHeight / (screenWidth * cardRatio * decksLen)
-    for (let i = 0; i < decksLen; i++) {
-      const offset = (i - (decksLen - 1) / 2) * scale * 100
-      deckStyles.push({
-        transform: `translate(0, ${offset}%) scale(${Math.min(0.8, scale)}`,
-      })
-    }
+    deckStyles = calculateDeckStyles(
+      decksLen,
+      screenHeight / (screenWidth * cardRatio * decksLen),
+      true
+    )
   } else {
     // row
-    const scale = screenWidth * cardRatio / (screenHeight * decksLen)
-    for (let i = 0; i < decksLen; i++) {
-      const offset = (i - (decksLen - 1) / 2) * scale * 100
-      deckStyles.push({
-        transform: `translate(${offset}%, 0) scale(${Math.min(0.8, scale)}`,
-      })
-    }
+    deckStyles = calculateDeckStyles(
+      decksLen,
+      screenWidth * cardRatio / (screenHeight * decksLen),
+      false
+    )
   }
   return {
     wrapperStyle: { width: '9.5em', height: `${9.5 * cardRatio}em` },
@@ -91,15 +90,12 @@ class DeckContainer extends React.Component {
     window.addEventListener('resize', this.resize)
   }
   resize = () => {
-    console.log(this.element)
     this.props.resize([this.element.clientWidth, this.element.clientHeight])
   }
   render() {
-    console.log('render', this.props)
     const { decks, screenSize } = this.props
     if (decks.length === 0) return <NoDecks />
     const styles = layout(screenSize, decks.length)
-    console.log(styles)
     return (
       <section
         ref={el => (this.element = el)}
