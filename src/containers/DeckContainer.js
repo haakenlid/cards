@@ -31,7 +31,7 @@ let Deck = ({
       <div className="Card reshuffle" style={style} onClick={shuffle} />
       {cards
         .map(renderCard)
-        .slice(Math.max(0, topCard - 3), topCard + 2)
+        .slice(Math.max(0, topCard - 1), topCard + 2)
         .reverse()}
     </div>
   )

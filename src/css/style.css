@@ -1,6 +1,7 @@
 html {
   overflow: hidden;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; }
 
 .App {
   background: #EEE;
@@ -11,14 +12,19 @@ html {
   align-items: stretch; }
 
 .AppMenu {
+  transition-property: font-size;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
   display: flex;
   justify-content: center;
-  font-size: 10vmin; }
+  font-size: 6vmin; }
+  .AppMenu:hover {
+    font-size: 12vmin; }
   .AppMenu .MenuItem {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.4em;
+    padding: 0.2em;
     height: 1em;
     width: 1em;
     color: rgba(0, 0, 0, 0.3);
@@ -43,7 +49,6 @@ html {
   user-select: none;
   position: absolute;
   pointer-events: none;
-  -webkit-tap-highlight-color: transparent;
   flex: 1; }
 
 .reshuffle {
