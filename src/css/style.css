@@ -81,6 +81,7 @@ html {
       .Card.flip:hover .CardFront, .Card.flip:hover .CardBack {
         box-shadow: 0 0.1em 2em -0.5em rgba(0, 0, 0, 0.5); }
   .Card.discarded {
+    pointer-events: none;
     z-index: 300;
     transform: rotateX(90deg) rotateY(70deg) translateX(150vh) !important; }
 
@@ -111,15 +112,3 @@ html {
 
 .CardFront {
   background-image: url("fallback-CardFront.jpg"); }
-
-.sjansekort .CardFront {
-  background-image: url("sjanse-CardFront.jpg"); }
-
-.sjansekort .CardBack {
-  background-image: url("sjanse-CardBack.jpg"); }
-
-.handlingskort .CardFront {
-  background-image: url("handling-CardFront.jpg"); }
-
-.handlingskort .CardBack {
-  background-image: url("handling-CardBack.jpg"); }

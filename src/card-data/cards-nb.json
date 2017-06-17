@@ -1,6 +1,8 @@
 {
   "sjansekort" : {
-    "name": "sjansekort",
+    "language": "nb",
+    "front": "sjanse-CardFront.jpg",
+    "back": "sjanse-CardBack.jpg",
     "cards": [{
       "title": "Revers",
       "text": "Skru tiden noen sekunder tilbake. Det som skjedde med deg før du trakk kortet skjer ikke - i stedet skjer det stikk motsatte. Det er opp til deg å beskrive nøyaktig hva som blir reversert."
@@ -79,7 +81,9 @@
     }]
   },
   "handlingskort" : {
-    "name": "handlingskort",
+    "language": "nb",
+    "front": "handling-CardFront.jpg",
+    "back": "handling-CardBack.jpg",
     "cards": [{
       "title": "Ja, og...",
       "text": "Du får til det du prøver på, og oppnår mer enn du forventet, kanskje litt i meste laget."

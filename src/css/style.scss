@@ -86,6 +86,7 @@ html { overflow: hidden;
     }
   }
   &.discarded {
+    pointer-events: none;
     z-index: 300;
     transform: rotateX(90deg) rotateY(70deg) translateX(150vh) !important;
   }
@@ -119,12 +120,4 @@ html { overflow: hidden;
 }
 .CardFront {
   background-image: url('fallback-CardFront.jpg');
-}
-.sjansekort{
-  .CardFront { background-image: url('sjanse-CardFront.jpg'); }
-  .CardBack { background-image: url('sjanse-CardBack.jpg'); }
-}
-.handlingskort{
-  .CardFront { background-image: url('handling-CardFront.jpg'); }
-  .CardBack { background-image: url('handling-CardBack.jpg'); }
 }

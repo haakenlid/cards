@@ -1,0 +1,107 @@
+---
+chancecards:
+  language: en
+  front: sjanse-CardFront.jpg
+  back: sjanse-CardBack.jpg
+  cards:
+  - title: Amor Victor
+    text: The power of love triumphs in this situation.  Exactly how this happens
+      is for you to describe.
+  - title: Cut Scene
+    text: Jump forward three hours. Describe what condition the characters find themselves
+      in. You’re not allowed to describe what has happened in the meantime.
+  - title: Flashback
+    text: Play a scene that has occurred in the past, in the same place where your
+      character is right now. The player who draws the card sets the scene and tells
+      the other players what characters (npcs or their own characters) to control.
+  - title: Haunted by the Past!
+    text: Something the character has done previously has consequences in the present.
+      Tell the game master what you think this card means.
+  - title: Nemesis!
+    text: This card awakens the character’s Nemesis.  In some way, their arch enemy
+      affects the situation. Exactly how is up to you. Doesn’t the character have
+      an arch enemy? Well, now she does.
+  - title: The Character Flaw.
+    text: The last npc the character met has a dark secret, a weak spot or a negative
+      trait. The character doesn’t necessarily know what it is, but it’s up to you
+      as the player to invent and describe it.
+  - title: Do not gaze into the Abyss…
+    text: The character feels an irresistible urge to do something she will regret.
+      Do it!
+  - title: Masquerade!
+    text: For the rest of this scene, all players swap characters. This includes the
+      game master.  Give your character sheet to the player at your right.
+  - title: Mood Change
+    text: Everyone present suddenly change mood to the exact opposite of what they
+      had. The new moods last for the rest of the scene.
+  - title: Inner Monologue
+    text: Throughout this scene you can at any time point your finger at someone (pc
+      or npc).  That character’s player must stand up and utter a short, inner monologue
+      (say whatever’s on the characters mind at that time).
+  - title: Meanwhile…
+    text: The scene is cut, and you may establish a new scene somewhere else. You
+      choose who is present. Players may be given npcs to play in this cut scene.
+  - title: Reality Split
+    text: Things are turned inside out and you experience several timelines simultaneously.  Each
+      other player may in turn describe a different course of events. When the laws
+      of reality catch up, there’s a loud noise and only one of your co-player’s descriptions
+      will have happened. You decide which one.
+  - title: Conscience
+    text: Two advisors appear, one on each shoulder of one of the characters (pc or
+      npc) present in the scene. Time stops while they try to convince the character
+      of their (opposing) sides to some dilemma. Choose who will be given advice and
+      which two players will control the advisors.
+  - title: Interview
+    text: Stand up. Your character is interviewed about what happened during this
+      scene.  You may describe freely what happened from your point of view, and your
+      characters thoughts. The other players ask questions, as in a press conference.
+      When the interview is over, you sit down and continue playing the scene where
+      you left off.
+  - title: Prosopopeia
+    text: Animals, objects or abstract concepts start to talk. Who are talking and
+      what do they have to say?
+  - title: The Shadow
+    text: Time stops as you have a conversation with you own shadow. The shadow has
+      the same skills and attributes as you, but in addition it may enter places you
+      can’t reach. Will you ask your shadow for help or advice?  The player that looks
+      most like you plays your shadow.
+  - title: Rumour Mill
+    text: Gossip spreads fast. Tell a rumour about the scene in progress to the person
+      on your left. The rumour is retold from player to player and each time something
+      is changed and exaggerated. By the time the gossip reaches back to you, it has
+      become true.
+  - title: Good Advice
+    text: You may ask someone for an advice. It may be anyone (pc or npc) and it could
+      be someone who’s dead or otherwise normally impossible to consult. Choose one
+      of the other players to be the advisor and decide how you are communicating.
+      If you follow the advice given to you, you will succeed.  But if you don’t follow
+      the advice you will fail, no matter what.
+actioncards:
+  language: en
+  front: handling-CardFront.jpg
+  back: handling-CardBack.jpg
+  cards:
+  - title: Yes, but…
+    text: The character succeeds, but something completely unrelated goes wrong, for
+      the character or someone she cares about.
+  - title: Yes, and…
+    text: The character succeeds, and achieves more than she expected. Perhaps even
+      a bit too much…
+  - title: No, but…
+    text: The character fails, but another positive thing happens instead, unrelated
+      to what she was aiming for.
+  - title: Help is needed.
+    text: The character ends up understanding that she needs the help of someone not
+      currently in the scene to achieve this aim.
+  - title: Yes, but only if…
+    text: The character can get what she wants – but only if she chooses to make a
+      certain sacrifice.
+  - title: Yes, but…
+    text: The character succeeds, but the consequences of the success are completely
+      different from what was expected.
+  - title: Yes, but…
+    text: The character succeeds, but there’s a tiny detail that doesn’t go quite
+      as planned.
+  - title: No, and…
+    text: The character fails, and something unrelated also goes wrong
+

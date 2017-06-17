@@ -9,7 +9,7 @@ let Deck = ({ style, deckName, cards, topCard, onClick, ...props }) => {
   const renderCard = ({ status, deckName, ...props }, index) => (
     <Card
       top={index === topCard}
-      flip={index === topCard && status === 1}
+      flip={status === 1}
       discarded={index < topCard}
       key={index}
       style={style}
@@ -39,7 +39,7 @@ Deck = connect(null, (dispatch, { deckName, topCard, cards }) => {
   }
 })(Deck)
 
-const calculateDeckStyles = (len = 1, size = 1, column = false) => {
+const calculateCardStyles = (len = 1, size = 1, column = false) => {
   const arr = []
   for (let i = 0; i < len; i++) {
     const scale = 0.8 * Math.min(1, size)
@@ -59,14 +59,14 @@ const layout = (screenSize, decksLen = 1, cardRatio = 0.71) => {
   let deckStyles = []
   if (screenWidth < screenHeight * decksLen * cardRatio) {
     // column
-    deckStyles = calculateDeckStyles(
+    deckStyles = calculateCardStyles(
       decksLen,
       screenHeight / (screenWidth * cardRatio * decksLen),
       true
     )
   } else {
     // row
-    deckStyles = calculateDeckStyles(
+    deckStyles = calculateCardStyles(
       decksLen,
       screenWidth * cardRatio / (screenHeight * decksLen),
       false
@@ -103,11 +103,11 @@ class DeckContainer extends React.Component {
         style={styles.containerStyle}
       >
         <div className="wrapper" style={styles.wrapperStyle}>
-          {decks.map((props, i) => (
+          {decks.map(({ front, back, deckName, topCard, cards }, i) => (
             <Deck
-              key={props.deckName}
+              key={deckName}
               style={styles.deckStyles[i]}
-              {...props}
+              {...{ cards, topCard, deckName }}
             />
           ))}
         </div>

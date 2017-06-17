@@ -19,9 +19,9 @@ export const shuffleDeck = deckName => ({
   type: types.SHUFFLE_DECK,
   payload: { deckName },
 })
-export const addDeck = (deckName, cards) => ({
+export const addDeck = (deckName, props) => ({
   type: types.ADD_DECK,
-  payload: { deckName, cards },
+  payload: { deckName, ...props },
 })
 export const RemoveDeck = deckName => ({
   type: types.REMOVE_DECK,
@@ -55,11 +55,12 @@ const card = (state, action) => {
 const deck = (state, action) => {
   switch (action.type) {
     case types.ADD_DECK: {
-      const { deckName, cards } = action.payload
+      const { cards, deckName, ...props } = action.payload
       return {
         topCard: 0,
         deckName,
         cards: cards.map(payload => card({ deckName }, { ...action, payload })),
+        ...props,
       }
     }
     case types.FLIP_CARD:

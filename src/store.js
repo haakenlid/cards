@@ -1,4 +1,4 @@
-import data from './data.json'
+import data from './card-data/'
 import loggerMiddleware from 'redux-logger'
 import debounceMiddleware from 'redux-debounced'
 import { combineReducers, applyMiddleware, createStore, compose } from 'redux'
@@ -23,16 +23,15 @@ const initializeRootStore = store => {
   const { ui, protodecks, decks } = store.getState()
   if (decks.length > 0) return
   ui.activeDecks.forEach((deckName, index) => {
-    const cards = protodecks[deckName].cards
-    store.dispatch(addDeck(deckName, cards))
+    store.dispatch(addDeck(deckName, protodecks[deckName]))
     store.dispatch(shuffleDeck(deckName))
   })
 }
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(
   combineReducers({ decks, ui, protodecks }),
   defaultData,
-  compose(applyMiddleware(...middlewares), autoRehydrate())
+  composeEnhancers(applyMiddleware(...middlewares), autoRehydrate())
 )
 
 initializeRootStore(store)
