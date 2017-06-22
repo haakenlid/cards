@@ -28,6 +28,20 @@ export const RemoveDeck = deckName => ({
   payload: { deckName },
 })
 
+// selectors
+export const getDecks = state => state.decks
+
+export const getDeck = (state, deckName) =>
+  getDecks(state).find(deck => deck.deckName === deckName)
+
+export const getCard = (state, deckName, cardIndex) =>
+  getDeck(state, deckName).cards[cardIndex]
+
+export const getTopCard = (state, deckName) => {
+  const deck = getDeck(state, deckName)
+  return deck.cards[deck.topCard]
+}
+
 // utility functions
 const shuffle = arr => {
   const a = arr.slice()

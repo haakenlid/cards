@@ -5,15 +5,21 @@ const types = {
   REMOVE_PROTODECK: 'protodecks/REMOVE_PROTODECK',
 }
 
+// action creators
 export const addProtodeck = deck => ({
   type: types.ADD_PROTODECK,
   payload: { [deck.name]: deck },
 })
 
-// const protoDeck = (state = {}, action) => {
-//   return state
-// }
+// selectors
+export const getProtodecks = state => state.protodecks
+export const getProtodeck = (state, name) => {
+  const deck = state.protodecks[name]
+  if (deck === undefined) throw new Error(`no protodeck "${name}"`)
+  return deck
+}
 
+// reducer
 export const reducer = (state = {}, action) => {
   switch (action.type) {
     case types.ADD_PROTODECK:
