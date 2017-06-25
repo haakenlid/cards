@@ -106,6 +106,8 @@ html { overflow: hidden;
   background: #ddd;
 }
 
+$bounce: cubic-bezier(0.410, 0.000, 0.460, 1.425);
+$bounceboth: cubic-bezier(0.325, -0.280, 0.655, 1.345);
 
 .Card {
   height: 100%;
@@ -113,7 +115,7 @@ html { overflow: hidden;
   z-index: 0;
   transition-property: transform, box-shadow;
   transition-duration: 400ms;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: $bounceboth;
   cursor: pointer;
   perspective: 15em;
   position: absolute;
@@ -129,6 +131,7 @@ html { overflow: hidden;
     z-index: 100;
     transition-delay: 0ms;
     transition-duration: 600ms;
+    //transition-timing-function: ease-in-out;
     .CardFront { transform: rotateY(0); }
     .CardBack { transform:  rotateY(-180deg); }
     &:hover {
