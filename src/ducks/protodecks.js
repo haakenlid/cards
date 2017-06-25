@@ -12,12 +12,19 @@ export const addProtodeck = deck => ({
 })
 
 // selectors
-export const getProtodecks = state => state.protodecks
-export const getProtodeck = (state, name) => {
-  const deck = state.protodecks[name]
-  if (deck === undefined) throw new Error(`no protodeck "${name}"`)
-  return deck
-}
+export const getProtodecks = R.prop('protodecks')
+export const getProtodecksByLanguage = (state, lang) =>
+  R.pipe(getProtodecks, R.filter(R.propEq('language', lang)))(state)
+export const getProtodeck = (state, name) =>
+  R.compose(R.prop(name), getProtodecks)(state)
+
+export const getAvailableLanguages = R.pipe(
+  getProtodecks,
+  R.pluck('language'),
+  R.values,
+  R.uniq,
+  R.sort(R.gt)
+)
 
 // reducer
 export const reducer = (state = {}, action) => {

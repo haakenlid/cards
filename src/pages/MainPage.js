@@ -2,20 +2,19 @@ import React from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import Card from '../components/Card'
-import { flipCard, discardCard, shuffleDeck } from '../ducks/decks'
+import { getDecks, flipCard, discardCard, shuffleDeck } from '../ducks/decks'
+import { getLanguage } from '../ducks/ui'
+import LanguageMenu from './LanguageMenu'
 
 let Deck = ({ deckName, cards, topCard, onClick, ...props }) => {
-  const renderCard = ({ status, deckName, ...props }, index) => (
-    <Card
-      top={index === topCard}
-      flip={status === 1}
-      discarded={index < topCard}
-      key={index}
-      {...props}
-    />
-  )
+  const renderCard = ({ status, deckName, ...props }, index) => {
+    const top = index === topCard
+    const flip = top && status === 1
+    const discarded = index < topCard
+    return <Card {...{ key: index, top, flip, discarded, ...props }} />
+  }
   return (
-    <div className={classNames('Deck', deckName)} onClick={onClick} {...props}>
+    <div className={classNames('Deck', deckName)} onClick={onClick}>
       <div className="Card reshuffle" />
       {cards.map(renderCard).reverse()}
     </div>
@@ -35,16 +34,17 @@ Deck = connect(null, (dispatch, { deckName, topCard, cards }) => {
   }
 })(Deck)
 
-const NoDecks = () => <h1> No decks found </h1>
-
-const MainPage = ({ decks }) => (
+const MainPage = ({ decks, language }) => (
   <section className="MainPage">
-    {decks.length === 0
-      ? <NoDecks />
-      : <div className="wrapper">
+    {language && decks.length
+      ? <div className="wrapper">
           {decks.map(d => <Deck key={d.deckName} {...d} />)}
-        </div>}
+        </div>
+      : <LanguageMenu />}
   </section>
 )
 
-export default connect(({ decks }) => ({ decks }))(MainPage)
+export default connect(state => ({
+  decks: getDecks(state),
+  language: getLanguage(state),
+}))(MainPage)

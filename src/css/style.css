@@ -11,6 +11,21 @@ html {
   flex-direction: column;
   align-items: stretch; }
 
+.LanguageMenu {
+  display: flex;
+  flex-direction: column; }
+  .LanguageMenu nav {
+    flex: 1;
+    display: flex;
+    justify-content: center; }
+    .LanguageMenu nav .Option {
+      padding: 1em;
+      cursor: pointer; }
+      .LanguageMenu nav .Option.active {
+        font-weight: bold; }
+      .LanguageMenu nav .Option:hover {
+        background-color: #ddd; }
+
 .AppMenu {
   transition-property: font-size;
   transition-duration: 0.2s;
@@ -62,7 +77,7 @@ html {
   width: 100%;
   z-index: 0;
   transition-property: transform, box-shadow;
-  transition-duration: 0.6s;
+  transition-duration: 400ms;
   transition-timing-function: ease-in-out;
   cursor: pointer;
   perspective: 15em;
@@ -72,29 +87,110 @@ html {
     transform: rotateY(180deg); }
   .Card .CardBack {
     transform: rotateY(0); }
-  .Card:nth-of-type(10n + 1) {
-    transition-delay: 40ms; }
-  .Card:nth-of-type(10n + 2) {
-    transition-delay: 80ms; }
-  .Card:nth-of-type(10n + 3) {
+  .Card:nth-of-type(50n + 0) {
+    transition-delay: 0ms; }
+  .Card:nth-of-type(50n + 1) {
+    transition-delay: 30ms; }
+  .Card:nth-of-type(50n + 2) {
+    transition-delay: 60ms; }
+  .Card:nth-of-type(50n + 3) {
+    transition-delay: 90ms; }
+  .Card:nth-of-type(50n + 4) {
     transition-delay: 120ms; }
-  .Card:nth-of-type(10n + 4) {
-    transition-delay: 160ms; }
-  .Card:nth-of-type(10n + 5) {
-    transition-delay: 200ms; }
-  .Card:nth-of-type(10n + 6) {
+  .Card:nth-of-type(50n + 5) {
+    transition-delay: 150ms; }
+  .Card:nth-of-type(50n + 6) {
+    transition-delay: 180ms; }
+  .Card:nth-of-type(50n + 7) {
+    transition-delay: 210ms; }
+  .Card:nth-of-type(50n + 8) {
     transition-delay: 240ms; }
-  .Card:nth-of-type(10n + 7) {
-    transition-delay: 280ms; }
-  .Card:nth-of-type(10n + 8) {
-    transition-delay: 320ms; }
-  .Card:nth-of-type(10n + 9) {
+  .Card:nth-of-type(50n + 9) {
+    transition-delay: 270ms; }
+  .Card:nth-of-type(50n + 10) {
+    transition-delay: 300ms; }
+  .Card:nth-of-type(50n + 11) {
+    transition-delay: 330ms; }
+  .Card:nth-of-type(50n + 12) {
     transition-delay: 360ms; }
-  .Card:nth-of-type(10n + 10) {
-    transition-delay: 400ms; }
+  .Card:nth-of-type(50n + 13) {
+    transition-delay: 390ms; }
+  .Card:nth-of-type(50n + 14) {
+    transition-delay: 420ms; }
+  .Card:nth-of-type(50n + 15) {
+    transition-delay: 450ms; }
+  .Card:nth-of-type(50n + 16) {
+    transition-delay: 480ms; }
+  .Card:nth-of-type(50n + 17) {
+    transition-delay: 510ms; }
+  .Card:nth-of-type(50n + 18) {
+    transition-delay: 540ms; }
+  .Card:nth-of-type(50n + 19) {
+    transition-delay: 570ms; }
+  .Card:nth-of-type(50n + 20) {
+    transition-delay: 600ms; }
+  .Card:nth-of-type(50n + 21) {
+    transition-delay: 630ms; }
+  .Card:nth-of-type(50n + 22) {
+    transition-delay: 660ms; }
+  .Card:nth-of-type(50n + 23) {
+    transition-delay: 690ms; }
+  .Card:nth-of-type(50n + 24) {
+    transition-delay: 720ms; }
+  .Card:nth-of-type(50n + 25) {
+    transition-delay: 750ms; }
+  .Card:nth-of-type(50n + 26) {
+    transition-delay: 780ms; }
+  .Card:nth-of-type(50n + 27) {
+    transition-delay: 810ms; }
+  .Card:nth-of-type(50n + 28) {
+    transition-delay: 840ms; }
+  .Card:nth-of-type(50n + 29) {
+    transition-delay: 870ms; }
+  .Card:nth-of-type(50n + 30) {
+    transition-delay: 900ms; }
+  .Card:nth-of-type(50n + 31) {
+    transition-delay: 930ms; }
+  .Card:nth-of-type(50n + 32) {
+    transition-delay: 960ms; }
+  .Card:nth-of-type(50n + 33) {
+    transition-delay: 990ms; }
+  .Card:nth-of-type(50n + 34) {
+    transition-delay: 1020ms; }
+  .Card:nth-of-type(50n + 35) {
+    transition-delay: 1050ms; }
+  .Card:nth-of-type(50n + 36) {
+    transition-delay: 1080ms; }
+  .Card:nth-of-type(50n + 37) {
+    transition-delay: 1110ms; }
+  .Card:nth-of-type(50n + 38) {
+    transition-delay: 1140ms; }
+  .Card:nth-of-type(50n + 39) {
+    transition-delay: 1170ms; }
+  .Card:nth-of-type(50n + 40) {
+    transition-delay: 1200ms; }
+  .Card:nth-of-type(50n + 41) {
+    transition-delay: 1230ms; }
+  .Card:nth-of-type(50n + 42) {
+    transition-delay: 1260ms; }
+  .Card:nth-of-type(50n + 43) {
+    transition-delay: 1290ms; }
+  .Card:nth-of-type(50n + 44) {
+    transition-delay: 1320ms; }
+  .Card:nth-of-type(50n + 45) {
+    transition-delay: 1350ms; }
+  .Card:nth-of-type(50n + 46) {
+    transition-delay: 1380ms; }
+  .Card:nth-of-type(50n + 47) {
+    transition-delay: 1410ms; }
+  .Card:nth-of-type(50n + 48) {
+    transition-delay: 1440ms; }
+  .Card:nth-of-type(50n + 49) {
+    transition-delay: 1470ms; }
   .Card.flip {
     z-index: 100;
-    transition-delay: 0ms; }
+    transition-delay: 0ms;
+    transition-duration: 600ms; }
     .Card.flip .CardFront {
       transform: rotateY(0); }
     .Card.flip .CardBack {

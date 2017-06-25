@@ -26,7 +26,8 @@ const getFontSize = (screenWidth, screenHeight, cardRatio) =>
 
 export const decksPosition = (screenSize = SCREENSIZE, decksLen, cardRatio) => {
   const [screenWidth, screenHeight] = screenSize
-  const columnLayout = screenWidth < screenHeight * decksLen * cardRatio
+  const columnLayout =
+    screenWidth / decksLen < screenHeight / decksLen / cardRatio
   const initialSize = columnLayout
     ? screenHeight / (screenWidth * cardRatio * decksLen)
     : screenWidth * cardRatio / (screenHeight * decksLen)
