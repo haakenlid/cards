@@ -30,8 +30,8 @@ const addDecks = R.pipe(
 
 export const chooseLanguage = language => (dispatch, getState) => {
   const decks = getProtodecksByLanguage(getState(), language)
-  const actions = addDecks(decks)
-  R.map(dispatch, [...actions, setLanguage(language)])
+  R.compose(R.map(dispatch), addDecks)(decks)
+  setTimeout(() => dispatch(setLanguage(language)), 100)
 }
 
 // // Initialize decks if needed
