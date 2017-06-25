@@ -1,24 +1,46 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as Icon from '../icons'
+import * as Icons from '../icons'
 import { getShowMenu, toggleMenu } from '../ducks/ui'
 
-const MenuItem = ({ children, ...props }) => (
-  <div className="MenuItem" {...props}>{children}</div>
-)
+const MenuItem = ({ icon, collapsedIcon, onClick, expanded }) => {
+  const Icon = expanded ? Icons[icon] : Icons[collapsedIcon]
+  if (Icon === undefined) return null
+  return <div className="MenuItem" onClick={onClick}><Icon title={icon} /></div>
+}
 
-const AppMenu = ({ expanded, toggleMenu }) =>
-  expanded
-    ? <nav className="AppMenu">
-        <MenuItem><Icon.Decks /></MenuItem>
-        <MenuItem><Icon.Globe /></MenuItem>
-        <MenuItem onClick={toggleMenu}><Icon.X /></MenuItem>
-        <MenuItem><Icon.Edit /></MenuItem>
-        <MenuItem><Icon.Book /></MenuItem>
-      </nav>
-    : <nav className="AppMenu">
-        <MenuItem onClick={toggleMenu}><Icon.Menu /></MenuItem>
-      </nav>
+const AppMenu = ({ expanded, toggleMenu }) => {
+  const buttons = [
+    {
+      icon: 'Decks',
+      onClick: e => console.log('decks'),
+    },
+    {
+      icon: 'Moon',
+      onClick: e => console.log('moon'),
+    },
+    {
+      icon: 'X',
+      collapsedIcon: 'Menu',
+      onClick: toggleMenu,
+    },
+    {
+      icon: 'Cog',
+      onClick: e => console.log('cog'),
+    },
+    {
+      icon: 'Book',
+      onClick: e => console.log('books'),
+    },
+  ]
+  return (
+    <nav className="AppMenu">
+      {buttons.map((button, key) => (
+        <MenuItem {...{ expanded, key, ...button }} />
+      ))}
+    </nav>
+  )
+}
 
 export default connect(state => ({ expanded: getShowMenu(state) }), {
   toggleMenu,

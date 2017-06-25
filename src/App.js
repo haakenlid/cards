@@ -2,8 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import './css/style.css'
 import store from './store'
-import DeckContainer from './containers/DeckContainer'
-import AppMenu from './containers/AppMenu'
+import MainPage from './pages/MainPage'
 import Head from './containers/Head'
 
 class AppShell extends React.Component {
@@ -11,8 +10,7 @@ class AppShell extends React.Component {
     return (
       <section className="App">
         <Head />
-        <DeckContainer />
-        <AppMenu />
+        <MainPage />
       </section>
     )
   }

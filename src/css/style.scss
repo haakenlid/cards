@@ -1,17 +1,19 @@
-$break-small: 500px;
-$break-large: 1000px;
+@import 'trig.scss';
+
+$break-small: 200px;
+$break-large: 800px;
 
 @mixin breakpoint($size) {
   @if $size == S {
-    @media (max-width: $break-small) { @content; }
+    @media (max-width: $break-small), (max-height: $break-small) { @content; }
   }
 
   @else if $size == M {
-    @media (min-width: $break-small) { @content; }
+    @media (min-width: $break-small), (min-height: $break-small) { @content; }
   }
 
   @else if $size == L {
-    @media (min-width: $break-large) { @content; }
+    @media (min-width: $break-large), (min-height: $break-large) { @content; }
   }
 
   @else {
@@ -38,11 +40,9 @@ html { overflow: hidden;
   transition-timing-function: ease-in-out;
   display: flex;
   justify-content: center;
-  @include breakpoint(S) {
-    font-size: 8vmin;
-  }
-  @include breakpoint(M) {
-    font-size: 2em;
+  font-size: 10vmin;
+  @include breakpoint(L) {
+    font-size: 2.5em;
   }
   height: 2em;
   .MenuItem {
@@ -61,7 +61,7 @@ html { overflow: hidden;
   }
 }
 
-.DeckContainer {
+.MainPage {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -100,8 +100,14 @@ html { overflow: hidden;
   .CardFront { transform: rotateY(180deg); }
   .CardBack { transform:  rotateY(0); }
   pointer-events:all;
+  @for $i from 1 through 10 {
+    &:nth-of-type(10n + #{$i}) {
+      transition-delay: 40ms * $i;
+    }
+  }
   &.flip {
     z-index: 100;
+    transition-delay: 0ms;
     .CardFront { transform: rotateY(0); }
     .CardBack { transform:  rotateY(-180deg); }
     &:hover {
@@ -112,10 +118,15 @@ html { overflow: hidden;
       }
     }
   }
-  &.discarded {
-    pointer-events: none;
-    z-index: 300;
-    transform: rotateX(90deg) rotateY(70deg) translateX(150vh) !important;
+}
+.discarded {
+  pointer-events: none;
+  z-index: 300;
+  transition-delay: 0ms !important;
+  @for $i from 0 through 20 {
+    &:nth-of-type(20n + #{$i}) {
+      transform: rotateZ(783deg*$i) translate(200vmax * sin(2*$i), 200vmax * cos(2*$i)) !important;
+    }
   }
 }
 

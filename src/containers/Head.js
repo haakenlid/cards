@@ -1,31 +1,32 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
-import R from 'ramda'
-
-const cardArt = ({ front = 'front.jpg', back = 'back.jpg' }, deck) => [
-  `.${deck} .CardFront { background-image: url("assets/${front}");}`,
-  `.${deck} .CardBack { background-image: url("assets/${back}");}`,
-]
-
-export const makeStyleSheet = R.pipe(
-  R.mapObjIndexed(cardArt), // build styles
-  R.values, // object -> array
-  R.flatten, // nested array -> array
-  R.join('\n') // array -> string
-)
+import { resize } from '../ducks/ui'
+import { getStyleSheet } from '../ducks/styles'
 
 class Head extends React.Component {
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize)
+  }
+  componentDidMount() {
+    this.resize()
+    window.addEventListener('resize', this.resize)
+  }
+  resize = () => {
+    this.props.resize(window.innerWidth, window.innerHeight)
+  }
   render() {
-    const style = makeStyleSheet(this.props.protodecks)
     return (
       <Helmet>
         <title>Trekk et kort!</title>
-        <style>{style}</style>
+        <style>{this.props.styles}</style>
       </Helmet>
     )
   }
 }
-const mapStateToProps = ({ protodecks }) => ({ protodecks })
+const mapStateToProps = state => ({
+  styles: getStyleSheet(state),
+})
+const mapDispatchToProps = { resize }
 
-export default connect(mapStateToProps)(Head)
+export default connect(mapStateToProps, mapDispatchToProps)(Head)

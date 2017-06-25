@@ -17,13 +17,11 @@ html {
   transition-timing-function: ease-in-out;
   display: flex;
   justify-content: center;
+  font-size: 10vmin;
   height: 2em; }
-  @media (max-width: 500px) {
+  @media (min-width: 800px), (min-height: 800px) {
     .AppMenu {
-      font-size: 8vmin; } }
-  @media (min-width: 500px) {
-    .AppMenu {
-      font-size: 2em; } }
+      font-size: 2.5em; } }
   .AppMenu .MenuItem {
     display: flex;
     justify-content: center;
@@ -37,13 +35,13 @@ html {
       background: white;
       color: black; }
 
-.DeckContainer {
+.MainPage {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center; }
-  .DeckContainer .wrapper {
+  .MainPage .wrapper {
     position: relative; }
 
 .Deck {
@@ -74,8 +72,29 @@ html {
     transform: rotateY(180deg); }
   .Card .CardBack {
     transform: rotateY(0); }
+  .Card:nth-of-type(10n + 1) {
+    transition-delay: 40ms; }
+  .Card:nth-of-type(10n + 2) {
+    transition-delay: 80ms; }
+  .Card:nth-of-type(10n + 3) {
+    transition-delay: 120ms; }
+  .Card:nth-of-type(10n + 4) {
+    transition-delay: 160ms; }
+  .Card:nth-of-type(10n + 5) {
+    transition-delay: 200ms; }
+  .Card:nth-of-type(10n + 6) {
+    transition-delay: 240ms; }
+  .Card:nth-of-type(10n + 7) {
+    transition-delay: 280ms; }
+  .Card:nth-of-type(10n + 8) {
+    transition-delay: 320ms; }
+  .Card:nth-of-type(10n + 9) {
+    transition-delay: 360ms; }
+  .Card:nth-of-type(10n + 10) {
+    transition-delay: 400ms; }
   .Card.flip {
-    z-index: 100; }
+    z-index: 100;
+    transition-delay: 0ms; }
     .Card.flip .CardFront {
       transform: rotateY(0); }
     .Card.flip .CardBack {
@@ -85,10 +104,53 @@ html {
       transform: scale(1) translate(0, 0) !important; }
       .Card.flip:hover .CardFront, .Card.flip:hover .CardBack {
         box-shadow: 0 0.1em 2em -0.5em rgba(0, 0, 0, 0.5); }
-  .Card.discarded {
-    pointer-events: none;
-    z-index: 300;
-    transform: rotateX(90deg) rotateY(70deg) translateX(150vh) !important; }
+
+.discarded {
+  pointer-events: none;
+  z-index: 300;
+  transition-delay: 0ms !important; }
+  .discarded:nth-of-type(20n + 0) {
+    transform: rotateZ(0deg) translate(0vmax, 200vmax) !important; }
+  .discarded:nth-of-type(20n + 1) {
+    transform: rotateZ(783deg) translate(181.85949vmax, -83.22937vmax) !important; }
+  .discarded:nth-of-type(20n + 2) {
+    transform: rotateZ(1566deg) translate(-151.3605vmax, -130.72872vmax) !important; }
+  .discarded:nth-of-type(20n + 3) {
+    transform: rotateZ(2349deg) translate(-55.87734vmax, 192.05603vmax) !important; }
+  .discarded:nth-of-type(20n + 4) {
+    transform: rotateZ(3132deg) translate(197.87165vmax, -29.10001vmax) !important; }
+  .discarded:nth-of-type(20n + 5) {
+    transform: rotateZ(3915deg) translate(-108.80422vmax, -167.81431vmax) !important; }
+  .discarded:nth-of-type(20n + 6) {
+    transform: rotateZ(4698deg) translate(-107.31268vmax, 168.77842vmax) !important; }
+  .discarded:nth-of-type(20n + 7) {
+    transform: rotateZ(5481deg) translate(198.12147vmax, 27.34744vmax) !important; }
+  .discarded:nth-of-type(20n + 8) {
+    transform: rotateZ(6264deg) translate(-57.58066vmax, -191.5319vmax) !important; }
+  .discarded:nth-of-type(20n + 9) {
+    transform: rotateZ(7047deg) translate(-150.19685vmax, 132.06585vmax) !important; }
+  .discarded:nth-of-type(20n + 10) {
+    transform: rotateZ(7830deg) translate(182.58905vmax, 81.61641vmax) !important; }
+  .discarded:nth-of-type(20n + 11) {
+    transform: rotateZ(8613deg) translate(-1.77026vmax, -199.99217vmax) !important; }
+  .discarded:nth-of-type(20n + 12) {
+    transform: rotateZ(9396deg) translate(-181.1155vmax, 84.83658vmax) !important; }
+  .discarded:nth-of-type(20n + 13) {
+    transform: rotateZ(10179deg) translate(152.51169vmax, 129.38386vmax) !important; }
+  .discarded:nth-of-type(20n + 14) {
+    transform: rotateZ(10962deg) translate(54.18116vmax, -192.52117vmax) !important; }
+  .discarded:nth-of-type(20n + 15) {
+    transform: rotateZ(11745deg) translate(-197.60628vmax, 30.85051vmax) !important; }
+  .discarded:nth-of-type(20n + 16) {
+    transform: rotateZ(12528deg) translate(110.28534vmax, 166.84467vmax) !important; }
+  .discarded:nth-of-type(20n + 17) {
+    transform: rotateZ(13311deg) translate(105.81654vmax, -169.71405vmax) !important; }
+  .discarded:nth-of-type(20n + 18) {
+    transform: rotateZ(14094deg) translate(-198.35576vmax, -25.59268vmax) !important; }
+  .discarded:nth-of-type(20n + 19) {
+    transform: rotateZ(14877deg) translate(59.27372vmax, 191.01473vmax) !important; }
+  .discarded:nth-of-type(20n + 20) {
+    transform: rotateZ(15660deg) translate(149.02263vmax, -133.38761vmax) !important; }
 
 .card-content {
   font-size: 0.36em;
