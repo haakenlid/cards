@@ -191,7 +191,8 @@ html {
   .Card.flip {
     z-index: 100;
     transition-delay: 0ms;
-    transition-duration: 600ms; }
+    transition-duration: 700ms;
+    transition-timing-function: cubic-bezier(0.41, 0, 0.46, 1.425); }
     .Card.flip .CardFront {
       transform: rotateY(0); }
     .Card.flip .CardBack {
@@ -259,11 +260,14 @@ html {
     padding: 0; }
 
 .CardBack, .CardFront {
+  transition: inherit;
+  transition-delay: 100ms;
+  transition-duration: 500ms;
+  transition-timing-function: ease-in-out;
   box-shadow: 0 0 0 0 transparent;
   border-radius: 0.3em;
   width: inherit;
   height: inherit;
-  transition: inherit;
   position: absolute;
   background-size: cover;
   background-position: center;

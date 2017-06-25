@@ -61,7 +61,7 @@ html { overflow: hidden;
   transition-timing-function: ease-in-out;
   display: flex;
   justify-content: center;
-  font-size: 10vw;
+  font-size: 10vw; // Fallbac
   font-size: 10vmin;
   @include breakpoint(L) {
     font-size: 2.5em;
@@ -109,7 +109,8 @@ html { overflow: hidden;
 
 $bounce: cubic-bezier(0.410, 0.000, 0.460, 1.425);
 $bounceboth: cubic-bezier(0.325, -0.280, 0.655, 1.345);
-
+// $flipcurve: cubic-bezier(0.400, -0.250, 0.000, 1.135);
+// $flipcurve: cubic-bezier(1.000, -0.005, 0.495, 0.165);
 .Card {
   height: 100%;
   width: 100%;
@@ -131,8 +132,8 @@ $bounceboth: cubic-bezier(0.325, -0.280, 0.655, 1.345);
   &.flip {
     z-index: 100;
     transition-delay: 0ms;
-    transition-duration: 600ms;
-    //transition-timing-function: ease-in-out;
+    transition-duration: 700ms;
+    transition-timing-function: $bounce;
     .CardFront { transform: rotateY(0); }
     .CardBack { transform:  rotateY(-180deg); }
     &:hover {
@@ -166,11 +167,14 @@ $bounceboth: cubic-bezier(0.325, -0.280, 0.655, 1.345);
   }
 }
 .CardBack, .CardFront {
+  transition: inherit;
+  transition-delay: 100ms;
+  transition-duration: 500ms;
+  transition-timing-function: ease-in-out;
   box-shadow: 0 0 0 0 rgba(0,0,0,0);
   border-radius: 0.3em;
   width: inherit;
   height: inherit;
-  transition: inherit;
   position: absolute;
   background-size: cover;
   background-position: center;
