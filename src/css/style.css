@@ -33,6 +33,7 @@ html {
   transition-timing-function: ease-in-out;
   display: flex;
   justify-content: center;
+  font-size: 10vw;
   font-size: 10vmin;
   height: 2em; }
   @media (min-width: 800px), (min-height: 800px) {
@@ -206,47 +207,47 @@ html {
   z-index: 300;
   transition-delay: 0ms !important; }
   .discarded:nth-of-type(20n + 0) {
-    transform: rotateZ(0deg) translate(0vmax, 200vmax) !important; }
+    transform: rotateZ(0deg) translate(0vw, 200vh) !important; }
   .discarded:nth-of-type(20n + 1) {
-    transform: rotateZ(783deg) translate(181.85949vmax, -83.22937vmax) !important; }
+    transform: rotateZ(783deg) translate(181.85949vw, -83.22937vh) !important; }
   .discarded:nth-of-type(20n + 2) {
-    transform: rotateZ(1566deg) translate(-151.3605vmax, -130.72872vmax) !important; }
+    transform: rotateZ(1566deg) translate(-151.3605vw, -130.72872vh) !important; }
   .discarded:nth-of-type(20n + 3) {
-    transform: rotateZ(2349deg) translate(-55.87734vmax, 192.05603vmax) !important; }
+    transform: rotateZ(2349deg) translate(-55.87734vw, 192.05603vh) !important; }
   .discarded:nth-of-type(20n + 4) {
-    transform: rotateZ(3132deg) translate(197.87165vmax, -29.10001vmax) !important; }
+    transform: rotateZ(3132deg) translate(197.87165vw, -29.10001vh) !important; }
   .discarded:nth-of-type(20n + 5) {
-    transform: rotateZ(3915deg) translate(-108.80422vmax, -167.81431vmax) !important; }
+    transform: rotateZ(3915deg) translate(-108.80422vw, -167.81431vh) !important; }
   .discarded:nth-of-type(20n + 6) {
-    transform: rotateZ(4698deg) translate(-107.31268vmax, 168.77842vmax) !important; }
+    transform: rotateZ(4698deg) translate(-107.31268vw, 168.77842vh) !important; }
   .discarded:nth-of-type(20n + 7) {
-    transform: rotateZ(5481deg) translate(198.12147vmax, 27.34744vmax) !important; }
+    transform: rotateZ(5481deg) translate(198.12147vw, 27.34744vh) !important; }
   .discarded:nth-of-type(20n + 8) {
-    transform: rotateZ(6264deg) translate(-57.58066vmax, -191.5319vmax) !important; }
+    transform: rotateZ(6264deg) translate(-57.58066vw, -191.5319vh) !important; }
   .discarded:nth-of-type(20n + 9) {
-    transform: rotateZ(7047deg) translate(-150.19685vmax, 132.06585vmax) !important; }
+    transform: rotateZ(7047deg) translate(-150.19685vw, 132.06585vh) !important; }
   .discarded:nth-of-type(20n + 10) {
-    transform: rotateZ(7830deg) translate(182.58905vmax, 81.61641vmax) !important; }
+    transform: rotateZ(7830deg) translate(182.58905vw, 81.61641vh) !important; }
   .discarded:nth-of-type(20n + 11) {
-    transform: rotateZ(8613deg) translate(-1.77026vmax, -199.99217vmax) !important; }
+    transform: rotateZ(8613deg) translate(-1.77026vw, -199.99217vh) !important; }
   .discarded:nth-of-type(20n + 12) {
-    transform: rotateZ(9396deg) translate(-181.1155vmax, 84.83658vmax) !important; }
+    transform: rotateZ(9396deg) translate(-181.1155vw, 84.83658vh) !important; }
   .discarded:nth-of-type(20n + 13) {
-    transform: rotateZ(10179deg) translate(152.51169vmax, 129.38386vmax) !important; }
+    transform: rotateZ(10179deg) translate(152.51169vw, 129.38386vh) !important; }
   .discarded:nth-of-type(20n + 14) {
-    transform: rotateZ(10962deg) translate(54.18116vmax, -192.52117vmax) !important; }
+    transform: rotateZ(10962deg) translate(54.18116vw, -192.52117vh) !important; }
   .discarded:nth-of-type(20n + 15) {
-    transform: rotateZ(11745deg) translate(-197.60628vmax, 30.85051vmax) !important; }
+    transform: rotateZ(11745deg) translate(-197.60628vw, 30.85051vh) !important; }
   .discarded:nth-of-type(20n + 16) {
-    transform: rotateZ(12528deg) translate(110.28534vmax, 166.84467vmax) !important; }
+    transform: rotateZ(12528deg) translate(110.28534vw, 166.84467vh) !important; }
   .discarded:nth-of-type(20n + 17) {
-    transform: rotateZ(13311deg) translate(105.81654vmax, -169.71405vmax) !important; }
+    transform: rotateZ(13311deg) translate(105.81654vw, -169.71405vh) !important; }
   .discarded:nth-of-type(20n + 18) {
-    transform: rotateZ(14094deg) translate(-198.35576vmax, -25.59268vmax) !important; }
+    transform: rotateZ(14094deg) translate(-198.35576vw, -25.59268vh) !important; }
   .discarded:nth-of-type(20n + 19) {
-    transform: rotateZ(14877deg) translate(59.27372vmax, 191.01473vmax) !important; }
+    transform: rotateZ(14877deg) translate(59.27372vw, 191.01473vh) !important; }
   .discarded:nth-of-type(20n + 20) {
-    transform: rotateZ(15660deg) translate(149.02263vmax, -133.38761vmax) !important; }
+    transform: rotateZ(15660deg) translate(149.02263vw, -133.38761vh) !important; }
 
 .card-content {
   font-size: 0.36em;

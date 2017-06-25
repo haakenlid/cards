@@ -61,6 +61,7 @@ html { overflow: hidden;
   transition-timing-function: ease-in-out;
   display: flex;
   justify-content: center;
+  font-size: 10vw;
   font-size: 10vmin;
   @include breakpoint(L) {
     font-size: 2.5em;
@@ -149,7 +150,7 @@ $bounceboth: cubic-bezier(0.325, -0.280, 0.655, 1.345);
   transition-delay: 0ms !important;
   @for $i from 0 through 20 {
     &:nth-of-type(20n + #{$i}) {
-      transform: rotateZ(783deg*$i) translate(200vmax * sin(2*$i), 200vmax * cos(2*$i)) !important;
+      transform: rotateZ(783deg*$i) translate(200vw * sin(2*$i), 200vh * cos(2*$i)) !important;
     }
   }
 }
