@@ -1,5 +1,6 @@
 html {
   overflow: hidden;
+  user-select: none;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent; }
 
@@ -62,7 +63,6 @@ html {
 .Deck {
   height: 100%;
   width: 100%;
-  user-select: none;
   position: absolute;
   pointer-events: none;
   flex: 1; }
