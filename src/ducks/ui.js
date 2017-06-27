@@ -1,5 +1,5 @@
 import { getProtodecksByLanguage } from './protodecks'
-import { shuffleDeck, addDeck } from './decks'
+import { shuffleDeck, addDeck, clearDecks } from './decks'
 import R from 'ramda'
 
 const actions = {
@@ -30,8 +30,9 @@ const addDecks = R.pipe(
 
 export const chooseLanguage = language => (dispatch, getState) => {
   const decks = getProtodecksByLanguage(getState(), language)
+  dispatch(clearDecks())
   R.compose(R.map(dispatch), addDecks)(decks)
-  setTimeout(() => dispatch(setLanguage(language)), 250)
+  dispatch(setLanguage(language))
 }
 
 // // Initialize decks if needed
@@ -41,19 +42,38 @@ export const chooseLanguage = language => (dispatch, getState) => {
 
 export const resize = (width, height) => ({
   type: actions.RESIZE,
-  meta: { debounce: { time: 50 } },
+  meta: { debounce: { time: 200 } },
   payload: { screenSize: [width, height] },
 })
 
 // selectors
+
 export const getScreenSize = state => state.ui.screenSize
 export const getShowMenu = state => state.ui.showMenu
 export const getLanguage = state => state.ui.language
+export const getUiReady = state => state.ui.hydrate
 
 // reducer
-export const reducer = (state = { showMenu: false }, action) => {
+export const reducer = (
+  state = {
+    language: null,
+    showMenu: false,
+    hydrate: false,
+  },
+  action
+) => {
   switch (action.type) {
+    case 'persist/REHYDRATE':
+      return {
+        ...state,
+        ...action.payload.ui,
+        hydrate: true,
+      }
     case actions.RESIZE:
+      return {
+        ...state,
+        ...action.payload,
+      }
     case actions.SET_LANGUAGE:
       return { ...state, ...action.payload }
     case actions.TOGGLE_MENU:

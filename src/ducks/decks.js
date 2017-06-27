@@ -4,6 +4,7 @@ const types = {
   SHUFFLE_DECK: 'decks/SHUFFLE_DECK',
   ADD_DECK: 'decks/ADD_DECK',
   REMOVE_DECK: 'decks/REMOVE_DECK',
+  CLEAR_DECKS: 'decks/CLEAR_DECKS',
 }
 
 // action creators
@@ -23,9 +24,13 @@ export const addDeck = (deckName, props) => ({
   type: types.ADD_DECK,
   payload: { deckName, ...props },
 })
-export const RemoveDeck = deckName => ({
+export const removeDeck = deckName => ({
   type: types.REMOVE_DECK,
   payload: { deckName },
+})
+export const clearDecks = deckName => ({
+  type: types.CLEAR_DECKS,
+  payload: {},
 })
 
 // selectors
@@ -101,6 +106,8 @@ const deck = (state, action) => {
 
 const decks = (state = [], action) => {
   switch (action.type) {
+    case types.CLEAR_DECKS:
+      return []
     case types.ADD_DECK:
       //if (state.filter(d => d.deckName === action.payload.deckName))
       //  return state

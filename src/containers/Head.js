@@ -8,9 +8,9 @@ class Head extends React.Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize)
   }
-  componentDidMount() {
-    this.resize()
+  componentWillMount() {
     window.addEventListener('resize', this.resize)
+    this.resize()
   }
   resize = () => {
     this.props.resize(window.innerWidth, window.innerHeight)
@@ -18,7 +18,7 @@ class Head extends React.Component {
   render() {
     return (
       <Helmet>
-        <title>Trekk et kort!</title>
+        <title>Draw A Card</title>
         <style>{this.props.styles}</style>
       </Helmet>
     )

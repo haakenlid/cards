@@ -1,23 +1,22 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import './css/style.css'
-import store from './store'
 import MainPage from './pages/MainPage'
 import Head from './containers/Head'
+import { reducer as ui } from './ducks/ui'
+import { reducer as decks } from './ducks/decks'
+import { reducer as protodecks } from './ducks/protodecks'
+import createStore from './store'
 
-class AppShell extends React.Component {
-  render() {
-    return (
-      <section className="App">
-        <Head />
-        <MainPage />
-      </section>
-    )
-  }
-}
+const AppShell = () => (
+  <section className="App">
+    <Head />
+    <MainPage />
+  </section>
+)
 
 export default () => (
-  <Provider store={store}>
+  <Provider store={createStore({ ui, decks, protodecks })}>
     <AppShell />
   </Provider>
 )

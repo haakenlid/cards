@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import classNames from 'classnames'
 import Card from '../components/Card'
 import { getDecks, flipCard, discardCard, shuffleDeck } from '../ducks/decks'
-import { getLanguage } from '../ducks/ui'
+import { getLanguage, getUiReady } from '../ducks/ui'
 import LanguageMenu from './LanguageMenu'
 
 let Deck = ({ deckName, cards, topCard, onClick, ...props }) => {
@@ -34,17 +34,22 @@ Deck = connect(null, (dispatch, { deckName, topCard, cards }) => {
   }
 })(Deck)
 
-const MainPage = ({ decks, language }) => (
-  <section className="MainPage">
-    {language && decks.length
-      ? <div className="wrapper">
+const MainPage = ({ decks, language, ready }) => {
+  if (!ready) return null
+  if (language && decks.length) {
+    return (
+      <section className="MainPage">
+        <div className="wrapper">
           {decks.map(d => <Deck key={d.deckName} {...d} />)}
         </div>
-      : <LanguageMenu />}
-  </section>
-)
+      </section>
+    )
+  }
+  return <LanguageMenu />
+}
 
 export default connect(state => ({
   decks: getDecks(state),
   language: getLanguage(state),
+  ready: getUiReady(state),
 }))(MainPage)

@@ -47,13 +47,14 @@ const calculateCardStyles = (
   shrink = SHRINK
 ) => {
   const arr = []
+  //if (decksLen === 0) arr[0] = `.Deck { transform: translate(0, -200%) }`
   const scale = shrink * Math.min(1, baseSize)
   for (let i = 0; i < decksLen; i++) {
     const offset = (i - (decksLen - 1) / 2) * baseSize
     let translate = ['0', `${offset * 100}%`]
     if (!columnLayout) translate = translate.reverse()
     arr.push(
-      `.Deck:nth-of-type(${i + 1}) .Card{ transform: translate(${translate}) scale(${scale}) }`
+      `.Deck:nth-of-type(${i + 1}) .Card{ transform: translate(${translate.join(', ')}) scale(${scale}) }`
     )
   }
   return arr

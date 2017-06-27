@@ -4,9 +4,6 @@ import thunkMiddleware from 'redux-thunk'
 import debounceMiddleware from 'redux-debounced'
 import { combineReducers, applyMiddleware, createStore, compose } from 'redux'
 import { persistStore, autoRehydrate } from 'redux-persist'
-import { reducer as ui } from './ducks/ui'
-import { reducer as decks, addDeck, shuffleDeck } from './ducks/decks'
-import { reducer as protodecks } from './ducks/protodecks'
 
 // middlewares
 const middlewares = [debounceMiddleware(), thunkMiddleware]
@@ -19,13 +16,14 @@ const defaultData = {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store = createStore(
-  combineReducers({ decks, ui, protodecks }),
-  defaultData,
-  composeEnhancers(applyMiddleware(...middlewares)) // , autoRehydrate())
-)
+const buildStore = reducers => {
+  const store = createStore(
+    combineReducers(reducers),
+    defaultData,
+    composeEnhancers(applyMiddleware(...middlewares), autoRehydrate())
+  )
+  persistStore(store)
+  return store
+}
 
-// initializeRootStore(store)
-//persistStore(store)
-
-export default store
+export default buildStore
