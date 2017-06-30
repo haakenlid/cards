@@ -2,7 +2,7 @@
   "chancecards" : {
     "language": "English",
     "front": "sjanse-CardFront.jpg",
-    "back": "sjanse-CardBack.jpg",
+    "back": "chance-CardBack.jpg",
     "cards": [
       {
         "title": "Amor Victor",
@@ -81,7 +81,7 @@
   "actioncards" : {
     "language": "English",
     "front": "handling-CardFront.jpg",
-    "back": "handling-CardBack.jpg",
+    "back": "action-CardBack.jpg",
     "cards":
     [
       {

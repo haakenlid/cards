@@ -20,9 +20,10 @@ const buildStore = reducers => {
   const store = createStore(
     combineReducers(reducers),
     defaultData,
-    composeEnhancers(applyMiddleware(...middlewares), autoRehydrate())
+    // composeEnhancers(applyMiddleware(...middlewares), autoRehydrate())
+    composeEnhancers(applyMiddleware(...middlewares))
   )
-  persistStore(store)
+  // persistStore(store)
   return store
 }
 

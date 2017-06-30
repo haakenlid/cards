@@ -35,17 +35,14 @@ Deck = connect(null, (dispatch, { deckName, topCard, cards }) => {
 })(Deck)
 
 const MainPage = ({ decks, language, ready }) => {
-  if (!ready) return null
-  if (language && decks.length) {
-    return (
-      <section className="MainPage">
-        <div className="wrapper">
-          {decks.map(d => <Deck key={d.deckName} {...d} />)}
-        </div>
-      </section>
-    )
-  }
-  return <LanguageMenu />
+  const content = ready
+    ? language && decks.length
+        ? <div className="wrapper">
+            {decks.map(d => <Deck key={d.deckName} {...d} />)}
+          </div>
+        : <LanguageMenu />
+    : null
+  return <section className="MainPage"> {content} </section>
 }
 
 export default connect(state => ({
